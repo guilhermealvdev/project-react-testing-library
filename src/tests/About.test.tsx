@@ -15,9 +15,8 @@ describe('Testando a page About', () => {
     const imgElement = screen.getByAltText('Pokédex');
 
     expect(imgElement).toBeInTheDocument();
-    expect(imgElement).toHaveAttribute(
-      'src',
-      'https://cdn2.bulbagarden.net/upload/thumb/8/86/Gen_I_Pok%C3%A9dex.png/800px-Gen_I_Pok%C3%A9dex.png'
-    );
+    expect(imgElement).toHaveAttribute('src', 'https://cdn2.bulbagarden.net/upload/thumb/8/86/Gen_I_Pok%C3%A9dex.png/800px-Gen_I_Pok%C3%A9dex.png');
   });
 });
+
+// v2
