@@ -4,6 +4,8 @@ import PageRoutes from './routes';
 
 import './App.css';
 
+// Iniciando o projeto
+
 function App() {
   return (
     <div className="App">
