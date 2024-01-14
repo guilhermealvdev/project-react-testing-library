@@ -16,4 +16,4 @@ describe('Testando o componente App', () => {
   });
 });
 
-// Testando primeiros testes.
+// Realizar testes para os caminhos.
