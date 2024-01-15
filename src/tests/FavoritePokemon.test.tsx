@@ -19,12 +19,11 @@ describe('Testando o componente FavoritePokemon', () => {
     const checkbox = screen.getByLabelText('Pokémon favoritado?');
     // Checkbox está dentro do FavotireInput.tsx - Que é renderizada na pokemon/148
     await userEvent.click(checkbox);
+    expect(checkbox).toBeChecked();
 
-    renderWithRouter(<FavoritePokemon />);
+    // renderWithRouter(<FavoritePokemon />);
+    await userEvent.click(screen.getByRole('link', { name: 'Favorite Pokémon' }));
     const dragonairPokemon = screen.getByText('Dragonair');
-
     expect(dragonairPokemon).toBeInTheDocument();
   });
-
-  // Passando apenas com 50%
 });
