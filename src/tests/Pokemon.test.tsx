@@ -1,8 +1,10 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from '../renderWithRouter';
-import { Pokemon } from '../components';
+
+const moreD = 'More details';
+const link25 = '/pokemon/25';
 
 describe('Testando o componente Pokemon', () => {
   test('É renderizado o card com as informações do pokemon', async () => {
@@ -24,27 +26,27 @@ describe('Testando o componente Pokemon', () => {
 
   test('Testando link', () => {
     renderWithRouter(<App />);
-    const linkElement = screen.getByRole('link', { name: 'More details' });
+    const linkElement = screen.getByRole('link', { name: moreD });
     expect(linkElement).toBeInTheDocument();
-    expect(linkElement).toHaveAttribute('href', '/pokemon/25');
+    expect(linkElement).toHaveAttribute('href', link25);
   });
 
   test('Testando redirecionamento', async () => {
     renderWithRouter(<App />);
 
-    const linkElement = screen.getByRole('link', { name: 'More details' });
+    const linkElement = screen.getByRole('link', { name: moreD });
     expect(linkElement).toBeInTheDocument();
     await userEvent.click(linkElement);
-    expect(window.location.pathname).toBe('/pokemon/25');
+    expect(window.location.pathname).toBe(link25);
   });
 
   test('Icone estrela nos favoritos', async () => {
     renderWithRouter(<App />);
 
-    const linkElement = screen.getByRole('link', { name: 'More details' });
+    const linkElement = screen.getByRole('link', { name: moreD });
     expect(linkElement).toBeInTheDocument();
     await userEvent.click(linkElement);
-    expect(window.location.pathname).toBe('/pokemon/25');
+    expect(window.location.pathname).toBe(link25);
 
     const checkbox = screen.getByRole('checkbox', { name: 'Pokémon favoritado?' });
     expect(checkbox).toBeInTheDocument();
