@@ -7,13 +7,13 @@ import { Pokemon } from '../components';
 describe('Testando o componente Pokemon', () => {
   test('É renderizado o card com as informações do pokemon', async () => {
     renderWithRouter(<App />);
-    const nomePokemon = screen.getByTestId('pokemon-name');
+    const nomePokemon = screen.getByText('Pikachu');
     expect(nomePokemon).toBeInTheDocument();
 
-    const tipoPokemon = screen.getByTestId('pokemon-type');
+    const tipoPokemon = screen.getByText('Electric', { selector: 'p[data-testid="pokemon-type"]' });
     expect(tipoPokemon).toBeInTheDocument();
 
-    const pesoPokemon = screen.getByTestId('pokemon-weight');
+    const pesoPokemon = screen.getByText('Average weight: 6.0 kg');
     expect(pesoPokemon).toBeInTheDocument();
 
     const imgPokemon = screen.getByAltText('Pikachu sprite');
@@ -29,5 +29,29 @@ describe('Testando o componente Pokemon', () => {
     expect(linkElement).toHaveAttribute('href', '/pokemon/25');
   });
 
-  // Em progresso
+  test('Testando redirecionamento', async () => {
+    renderWithRouter(<App />);
+
+    const linkElement = screen.getByRole('link', { name: 'More details' });
+    expect(linkElement).toBeInTheDocument();
+    await userEvent.click(linkElement);
+    expect(window.location.pathname).toBe('/pokemon/25');
+  });
+
+  test('Icone estrela nos favoritos', async () => {
+    renderWithRouter(<App />);
+
+    const linkElement = screen.getByRole('link', { name: 'More details' });
+    expect(linkElement).toBeInTheDocument();
+    await userEvent.click(linkElement);
+    expect(window.location.pathname).toBe('/pokemon/25');
+
+    const checkbox = screen.getByRole('checkbox', { name: 'Pokémon favoritado?' });
+    expect(checkbox).toBeInTheDocument();
+    await userEvent.click(checkbox);
+    const imgFavorita = screen.getByAltText('Pikachu is marked as favorite');
+    expect(imgFavorita).toBeInTheDocument();
+    expect(imgFavorita).toHaveAttribute('alt', 'Pikachu is marked as favorite');
+    expect(imgFavorita).toHaveAttribute('src', '/star-icon.png');
+  });
 });
